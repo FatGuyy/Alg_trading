@@ -48,7 +48,7 @@ def bearish_market():
     """
     if(ema_candle_1st_value >= low_candle_1st_value and ema_candle_2nd_value <= low_candle_2nd_value and ema_candle_3rd_value >= low_candle_3rd_value and low_candle_3rd_value < low_candle_1st_value and high_candle_2nd_value > high_candle_3rd_value ):
         low_candle_3rd_str = str(low_candle_3rd_value)
-        var = f'Bearish Market.\nBuy PE bellow level :  {low_candle_3rd_str} \n' + f'SL is {high_candle_2nd_value}'
+        var = f'Bearish Market.\n   Buy PE bellow level :  {low_candle_3rd_str} \n' + f'SL is {high_candle_2nd_value}'
         return(var + f'\nTime = {index_time_3rd_candle}')
     return 'None'
 
