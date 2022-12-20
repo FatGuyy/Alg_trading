@@ -3,13 +3,11 @@ This is the utils of project(where all commonly used functions and constants are
 """
 import time
 import requests
-# import telepot
 
 SYMBOL = "^NSEI" # any symbol from yahoo finance
-number_of_candles_to_iterate = 100 # Literally the varable name
+number_of_candles_to_iterate = 6 # Literally the varable name
 TOKEN = '5439333939:AAFSQRPoFSUQCLVrki-9ypYCH5tHyf_KSVE' # Telegram bot token
 CHAT_ID = '-1001882134110' # telegram group id
-# bot = telepot.Bot(TOKEN)
 
 def send_message(message):
     """
