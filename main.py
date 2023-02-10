@@ -40,7 +40,7 @@ def ema_5():
         time = (str(timestamp))
         index_time_tolist_2.append(time)
     
-    # getting lower values of recent data
+    # getting higher values of recent data
     data_high = data[["High"]].tail(number_of_candles_to_iterate)
     data_high_values_tolist = data_high.values.tolist() # converting data into list
 
