@@ -84,11 +84,11 @@ def ema_5():
                 utils.send_message(bearish_message)
 
 
-schedule.every().day.at('03:45:00').do(lambda : ema_5())
+# schedule.every().day.at('03:45:00').do(lambda : ema_5())
 
 # run_once = True
 while True:
-
-    schedule.next_run()
+    ema_5()
+    # schedule.next_run()
 
     sleep(300)
