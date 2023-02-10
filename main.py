@@ -100,7 +100,7 @@ def ema_5():
 
             elif 'Bearish Market.' in bearish_message:
                 utils.send_message(bearish_message)
-
+    print("ema 5 analysis done.")
 
 # schedule.every().day.at('03:45:00').do(lambda : ema_5())
 # run_once = True
