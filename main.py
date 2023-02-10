@@ -2,16 +2,16 @@
 This file just sums up all the files and runs them.
 """
 from time import sleep
-import schedule
-# import hackathon.SITS.utils as utils
-# import ema_5 as ema_5
-
 import yfinance as yf
 import utils as utils
+# import schedule
+
+SYMBOL = "^NSEI" # any symbol from yahoo finance
+number_of_candles_to_iterate = 6 # Literally the varable name
 
 def ema_5():
-    data =  yf.download(utils.SYMBOL,period ="1d",interval = "5m")
-    data_10 = data.tail(utils.number_of_candles_to_iterate)
+    data =  yf.download(SYMBOL,period ="1d",interval = "5m")
+    data_10 = data.tail(number_of_candles_to_iterate)
     data_10.reindex()
 
     index_time = data_10.index
@@ -23,16 +23,16 @@ def ema_5():
         index_time_tolist_2.append(time)
     
     # getting lower values of recent data
-    data_high = data[["High"]].tail(utils.number_of_candles_to_iterate)
+    data_high = data[["High"]].tail(number_of_candles_to_iterate)
     data_high_values_tolist = data_high.values.tolist() # converting data into list
 
     # getting lower values of recent data
-    data_low = data[["Low"]].tail(utils.number_of_candles_to_iterate)
+    data_low = data[["Low"]].tail(number_of_candles_to_iterate)
     data_low_values_tolist = data_low.values.tolist() # converting data into list
 
     # exponential moving average
     data['ema'] = data['Close'].ewm(span=5).mean()
-    data_ema = data['ema'].tail(utils.number_of_candles_to_iterate)
+    data_ema = data['ema'].tail(number_of_candles_to_iterate)
     data_ema_values_tolist = data_ema.values.tolist() # converting data into list
 
     def bullish_market():
