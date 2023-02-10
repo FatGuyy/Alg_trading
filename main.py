@@ -3,14 +3,32 @@ This file just sums up all the files and runs them.
 """
 from time import sleep
 import yfinance as yf
-import utils as utils
+import utils
+import bollinger_band
 # import schedule
-
+import numpy as np
+import pandas_datareader as pdr
 SYMBOL = "^NSEI" # any symbol from yahoo finance
 number_of_candles_to_iterate = 6 # Literally the varable name
+data =  yf.download(SYMBOL,period ="1d",interval = "5m")
+
+#------------------------------------------------------
+# BOLINGER-BANDS
+
+# give prices as list  # rate = 20 
+def get_sma(prices, rate):
+    return prices.rolling(rate).mean()
+
+def get_bollinger_bands(prices, rate=20, std_dev = 2):
+    sma = get_sma(prices, rate)
+    std = prices.rolling(rate).std()
+    bollinger_up = sma + std * std_dev # Calculate top band
+    bollinger_down = sma - std * std_dev # Calculate bottom band
+    return bollinger_up, bollinger_down
+#------------------------------------------------------
+
 
 def ema_5():
-    data =  yf.download(SYMBOL,period ="1d",interval = "5m")
     data_10 = data.tail(number_of_candles_to_iterate)
     data_10.reindex()
 
@@ -85,10 +103,11 @@ def ema_5():
 
 
 # schedule.every().day.at('03:45:00').do(lambda : ema_5())
-
 # run_once = True
+
+data_closing = list(data.tail(number_of_candles_to_iterate))
 while True:
     ema_5()
     # schedule.next_run()
-
+    bb_up, bb_down = bollinger_band.get_bollinger_bands(data_closing)
     sleep(300)

@@ -17,9 +17,9 @@ def get_bollinger_bands(prices, rate=20, std_dev = 2):
     bollinger_down = sma - std * std_dev # Calculate bottom band
     return bollinger_up, bollinger_down
 
-symbol = '^NSEI'
-df = pdr.DataReader(symbol, 'yahoo', '2014-07-01', '2015-07-01')
-df.index = np.arange(df.shape[0])
-closing_prices = df['Close']
+# symbol = '^NSEI'
+# df = pdr.DataReader(symbol, 'yahoo', '2014-07-01', '2015-07-01')
+# df.index = np.arange(df.shape[0])
+# closing_prices = df['Close']
 
-bollinger_up, bollinger_down = get_bollinger_bands(closing_prices) 
+# bollinger_up, bollinger_down = get_bollinger_bands(closing_prices) 
