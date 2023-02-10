@@ -105,7 +105,7 @@ def ema_5():
 # schedule.every().day.at('03:45:00').do(lambda : ema_5())
 # run_once = True
 
-data_closing = list(data.tail(number_of_candles_to_iterate))
+data_closing = list(data.tail(30))
 while True:
     ema_5()
     # schedule.next_run()
