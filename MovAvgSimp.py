@@ -8,7 +8,8 @@ data = yf.download(SYMBOL,period ="10d",interval = "15m")
 def SMA(data, ndays): 
     SMA = pd.Series(data['Close'].rolling(ndays).mean(), name = 'SMA') 
     data = data.join(SMA) 
-    print(data)
+    print(data) # this will complete data with time stamp
+    print(data['SMA']) # this will only give SMA data with time stamp
     return data
 
 # Compute the 50-day SMA
