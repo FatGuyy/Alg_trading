@@ -12,7 +12,7 @@ data = yf.download(SYMBOL,period ="2d",interval = "5m") # getting data
 
 
 # Simple Moving Average 
-def SMA(data, ndays): 
+def SWMA(data, ndays): 
     SMA = pd.Series(data['Close'].rolling(ndays).mean(), name = 'SMA') 
     data = data.join(SMA) 
     # print(data)
@@ -21,7 +21,7 @@ def SMA(data, ndays):
 # Compute the 50-day SMA
 
 n = 50 # n gives time period 
-SMA = SMA(data,n) # calling function
+SMA = SWMA(data,n) # calling function
 
 #---------------------------------------------------------------
 
@@ -51,24 +51,24 @@ EWMA_data = EWMA['EWMA_5'] # getting only SMA data with time
 
 EWMA_data_list = EWMA_data.values.tolist() # converting data into list
 
-for i in range(0,len(SMA_data_list)):
+for i in range(0,len(SMA_data_list)-1):
 
-    if EWMA_data_list[i] or SMA_data_list[i] == 'NaN': continue
-    else : 
-        EWMA_data_list[i] = int(EWMA_data_list[i])
-        SMA_data_list[i] = int(SMA_data_list[i])
+    if EWMA_data_list[i] == 'NaN' and SMA_data_list[i] == 'NaN': continue
+    else :
+        # EWMA_data_list[i] = int(EWMA_data_list[i])
+        # SMA_data_list[i] = int(SMA_data_list[i])
 
     #For Bullish
 
-    if SMA_data_list[i] > EWMA_data_list[i] & EWMA_data_list[i+1] > SMA_data_list[i+1] : 
-        print("Getting Bulish")
-        print("From : " , SMA_data_list[i+1])
-    else : print("No Bulish ")
+        if SMA_data_list[i] > EWMA_data_list[i] and EWMA_data_list[i+1] > SMA_data_list[i+1] : 
+            print("Getting Bulish")
+            print("From : " , SMA_data_list[i+1])
+        # else : print("No Bulish ")
 
     #For Bearish
 
-    if(EWMA_data_list[i] > SMA_data_list[i] & SMA_data_list[i+1] > EWMA_data_list[i+1]) : 
-        print("Getting Bearish")
-        print("From : " , EWMA_data_list[i+1])
-    else : print("No Bearish ")
+        if(EWMA_data_list[i] > SMA_data_list[i] and SMA_data_list[i+1] > EWMA_data_list[i+1]) : 
+            print("Getting Bearish")
+            print("From : " , EWMA_data_list[i+1])
+        # else : print("No Bearish ")
 
