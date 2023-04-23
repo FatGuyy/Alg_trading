@@ -4,7 +4,7 @@ This is the implementation of the first 15 mins of the market then break out Str
 """
 import time
 import yfinance as yf
-import hackathon.SITS.utils as utils
+import utils as utils
 
  
 def check_15mins(breaking_candle = 2):

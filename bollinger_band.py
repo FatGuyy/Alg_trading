@@ -1,11 +1,22 @@
+'''
+#------------------------------------------------------
+# BOLINGER-BANDS
+
+# give prices as list  # rate = 20 
+def get_sma(prices, rate):
+    return prices.rolling(rate).mean()
+
+def get_bollinger_bands(prices, rate=20, std_dev = 2):
+    sma = get_sma(prices, rate)
+    std = prices.rolling(rate).std()
+    bollinger_up = sma + std * std_dev # Calculate top band
+    bollinger_down = sma - std * std_dev # Calculate bottom band
+    return bollinger_up, bollinger_down
+#------------------------------------------------------
+'''
+
 # Middle band is 20 day sma.
 # Upper = 20sma + some std deviation.
-
-# import pandas as pd
-# import matplotlib.pyplot as plt
-import numpy as np
-import pandas_datareader as pdr
-
 # give prices as list  # rate = 20 
 def get_sma(prices, rate):
     return prices.rolling(rate).mean()
