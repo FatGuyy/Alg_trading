@@ -1,36 +1,33 @@
-'''
-#------------------------------------------------------
-# BOLINGER-BANDS
+import yfinance as yf
 
-# give prices as list  # rate = 20 
-def get_sma(prices, rate):
-    return prices.rolling(rate).mean()
+equity = yf.Ticker("^NSEI")
+data = equity.history(period='1d', interval='15m')
+df = data[['Close']]
 
-def get_bollinger_bands(prices, rate=20, std_dev = 2):
-    sma = get_sma(prices, rate)
-    std = prices.rolling(rate).std()
-    bollinger_up = sma + std * std_dev # Calculate top band
-    bollinger_down = sma - std * std_dev # Calculate bottom band
-    return bollinger_up, bollinger_down
-#------------------------------------------------------
-'''
+sma = df.rolling(window=20).mean().dropna()
+rstd = df.rolling(window=20).std().dropna()
 
-# Middle band is 20 day sma.
-# Upper = 20sma + some std deviation.
-# give prices as list  # rate = 20 
-def get_sma(prices, rate):
-    return prices.rolling(rate).mean()
+upper_band = sma + 1.5 * rstd
+lower_band = sma - 1.5 * rstd
 
-def get_bollinger_bands(prices, rate=20, std_dev = 2):
-    sma = get_sma(prices, rate)
-    std = prices.rolling(rate).std()
-    bollinger_up = sma + std * std_dev # Calculate top band
-    bollinger_down = sma - std * std_dev # Calculate bottom band
-    return bollinger_up, bollinger_down
+upper_band = upper_band.rename(columns={'Close': 'upper'})
+lower_band = lower_band.rename(columns={'Close': 'lower'})
+bb = df.join(upper_band).join(lower_band)
 
-# symbol = '^NSEI'
-# df = pdr.DataReader(symbol, 'yahoo', '2014-07-01', '2015-07-01')
-# df.index = np.arange(df.shape[0])
-# closing_prices = df['Close']
+#-------------------------------------------------------------------------
 
-# bollinger_up, bollinger_down = get_bollinger_bands(closing_prices) 
+bb_upper = bb['upper'] #getting upper band values only
+bb_lower = bb['lower'] # getting lower band values only
+
+# print(bb_upper)
+# print(bb_lower)
+
+#-------------------------------------------------------------------------------
+# converting into list
+
+bb_upper_list = bb_upper.values.tolist()
+bb_lower_list = bb_lower.values.tolist()
+print(bb_upper_list)
+print(bb_lower_list)
+
+#----------------------------------------------------------------------------------
